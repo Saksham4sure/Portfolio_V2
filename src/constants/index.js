@@ -117,7 +117,7 @@ export const projectItems = [
         title: "Velaro",
         tech: ["react", "tailwind"],
         img: Velaro,
-        desc: "Rentora is a simple booking platform for resort apartments, making reservations easy and hassle-free.",
+        desc: "A clean and modern car showroom website designed to showcase vehicles with clarity and style. Built to highlight each model’s details through a simple layout, smooth interactions, and an intuitive browsing experience.",
         about: "",
         link: "http://velaro-cars.vercel.app/",
     },
@@ -125,7 +125,7 @@ export const projectItems = [
         title: "KryPo.",
         tech: ["react", "tailwind"],
         img: Krypo,
-        desc: "Rentora is a simple booking platform for resort apartments, making reservations easy and hassle-free.",
+        desc: "Development of a frontend finance application focused on accessibility and trust. The objective: to simplify the visualization of financial data through a modern interface designed for clarity, usability, and smooth user interaction.",
         about: "",
         link: "http://krypo.vercel.app/",
     },
@@ -133,7 +133,7 @@ export const projectItems = [
         title: "Vaonis",
         tech: ["html", "tailwind", "lenis"],
         img: Vaonis,
-        desc: "An immersive showcase for Vaonis telescopes, blending design, motion, and astronomy.",
+        desc: "A visually faithful clone website inspired by a premium telescope brand. Crafted to reflect a scientific yet elegant identity, with structured layouts and smooth transitions that enhance exploration and product discovery.",
         about: "",
         link: "http://vaonis.vercel.app/",
     },
@@ -141,18 +141,10 @@ export const projectItems = [
         title: "Meltiee",
         tech: ["html", "tailwind", "gsap"],
         img: Meltiee,
-        desc: "An interactive journey through Meltiee bakery, where design meets confectionery charm.",
+        desc: "A warm and inviting bakery website designed to capture the charm of handcrafted treats.",
         about: "",
         link: "https://meltiee.vercel.app/",
-    },
-    {
-        title: "Rentora",
-        tech: ["react", "tailwind"],
-        img: Rentora,
-        desc: "Rentora is a simple booking platform for resort apartments, making reservations easy and hassle-free.",
-        about: "",
-        link: "http://rentoraa.vercel.app/",
-    },
+    }
 ];
 
 export const aboutPara1 = "Hi I'm Saksham Shrestha, a passionate frontend developer with a focus on building fast, minimal, and visually appealing web applications.";
