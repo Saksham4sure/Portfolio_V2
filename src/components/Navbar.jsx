@@ -46,15 +46,20 @@ const Navbar = () => {
             y: 20
         });
         gsap.set(logoRef.current, {
-            color: "#1D1D1D",
+            color: "#444444",
         });
 
         tl.current = gsap.timeline({ paused: true }).to(navRef.current, {
             yPercent: 0,
             duration: 0.5,
             ease: "power3.inOut"
-        }).to([logoRef.current, butnRef.current], {
+        }).to(logoRef.current, {
             color: "#D9D9D9",
+            duration: 0.5,
+            ease: "power3.inOut"
+        }, "<").to(butnRef.current, {
+            color: "#D9D9D9",
+            background: "#444444",
             duration: 0.5,
             ease: "power3.inOut"
         }, "<").to(linksRef.current, {
@@ -97,16 +102,16 @@ const Navbar = () => {
     return (
         <>
             <div ref={navbar} className='flex w-full justify-between items-center px-10 py-4 fixed z-50'>
-                <div className="logo z-30">
-                    <h1 ref={logoRef} className="text-5xl flex items-end">S<span className='text-xl'>x</span></h1>
+                <div className="logo z-30 cursor-default">
+                    <h1 ref={logoRef} className="text-5xl flex items-end">S<span className='text-xl'>x.</span></h1>
                 </div>
-                <div className="menu flex items-center justify-center gap-6 h-full">
+                <div className="menu flex items-center justify-center gap-2 h-full">
                     <div className="hamburger rounded-full h-14 w-14 bg-[#FFFFFF] flex flex-col gap-1 items-center justify-center cursor-pointer" onClick={toggleMenu}>
                         <div ref={topLine} className='bg-black w-[28px] h-[2px]'></div>
                         <div ref={bottomLine} className='bg-black w-[28px] h-[2px]'></div>
                     </div>
                     <div className='hidden md:flex'>
-                        <a href='#contact' ref={butnRef} className=''>Let's talk</a>
+                        <p ref={butnRef} className='text-xs px-3 py-1 bg-[#eee] rounded-full'>sakshamorig123@gmail.com</p>
                     </div>
                 </div>
             </div>

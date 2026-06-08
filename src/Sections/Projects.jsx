@@ -24,7 +24,7 @@ const Projects = () => {
         <div>
           <h1 className="text-5xl bold px-10">Selected Works</h1>
         </div>
-        <div className="px-10 pt-6 pb-10 flex flex-col md:flex-row items-center justify-center gap-x-10 gap-y-6 flex-wrap">
+        <div className="px-10 pt-6 pb-10 flex flex-col items-center justify-center gap-x-10 gap-y-6">
           {projectItems.map((proj,index) => (
             <Project
               key={index}
@@ -33,10 +33,12 @@ const Projects = () => {
               descri={proj.desc}
               techno={proj.tech}
               link={proj.link}
+              about={proj.about}
+              idx={proj.idx}
             />
           ))}
 
-          <div className="bg-stone-900 h-[1px] rounded-full w-full"></div>
+          <div className="bg-stone-900 h-px rounded-full w-full"></div>
         </div>
 
         <motion.div style={{ height }} className="relative mt-2.5">
