@@ -1,8 +1,9 @@
 import Vaonis from "../assets/Images/vaonis.png";
-import Meltiee from "../assets/Images/meltiee.png";
+import Aiyanna from "../assets/Images/aiyanna.png";
 import Rentora from "../assets/Images/rentora.png";
-import Krypo from "../assets/Images/krypo.png";
 import Velaro from "../assets/Images/velaro.png";
+import Renaissance from "../assets/Images/renaissance.png";
+import Krypo from "../assets/Images/krypo.png";
 
 import { FaHtml5 } from "react-icons/fa";
 
@@ -115,40 +116,39 @@ export const titles = [
 export const projectItems = [
     {
         idx: "01",
+        title: "Renaissance",
+        tech: ["react", "gsap", "lenis"],
+        img: Renaissance,
+        desc: "A visually faithful clone website inspired by a premium telescope brand. Crafted to reflect a scientific yet elegant identity, with structured layouts and smooth transitions that enhance exploration and product discovery.",
+        about: "Immersive historical-themed interactive journey.",
+        link: "https://eternity-renaissance.vercel.app//",
+    },
+    {
+        idx: "02",
+        title: "Aiyanna",
+        tech: ["gsap", "tailwind", "lenis"],
+        img: Aiyanna,
+        desc: "A visually faithful clone website inspired by a premium telescope brand. Crafted to reflect a scientific yet elegant identity, with structured layouts and smooth transitions that enhance exploration and product discovery.",
+        about: "Creative parallax scrolling web experience.",
+        link: "http://aiyanna.vercel.app/",
+    },
+    {
+        idx: "03",
         title: "Vaonis",
         tech: ["html", "tailwind", "lenis"],
         img: Vaonis,
         desc: "A visually faithful clone website inspired by a premium telescope brand. Crafted to reflect a scientific yet elegant identity, with structured layouts and smooth transitions that enhance exploration and product discovery.",
-        about: "A visually faithful clone website.",
+        about: "A visually faithful clone website of telescope brand.",
         link: "http://vaonis.vercel.app/",
     },
     {
-        idx: "02",
+        idx: "04",
         title: "Velaro",
         tech: ["react", "tailwind"],
         img: Velaro,
         desc: "A clean and modern car showroom website designed to showcase vehicles with clarity and style. Built to highlight each model’s details through a simple layout, smooth interactions, and an intuitive browsing experience.",
         about: "A clean and modern car showroom website.",
         link: "http://velaro-cars.vercel.app/",
-    },
-    {
-        idx: "03",
-        title: "KryPo.",
-        tech: ["react", "tailwind"],
-        img: Krypo,
-        desc: "Development of a frontend finance application focused on accessibility and trust. The objective: to simplify the visualization of financial data through a modern interface designed for clarity, usability, and smooth user interaction.",
-        about: "Development of a frontend finance application.",
-        link: "http://krypo.vercel.app/",
-    },
-
-    {
-        idx: "04",
-        title: "Meltiee",
-        tech: ["html", "tailwind", "gsap"],
-        img: Meltiee,
-        desc: "A warm and inviting bakery website designed to capture the charm of handcrafted treats.",
-        about: "A warm and inviting bakery website.",
-        link: "https://meltiee.vercel.app/",
     }
 ];
 
