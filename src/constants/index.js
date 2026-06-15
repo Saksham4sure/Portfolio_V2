@@ -1,9 +1,7 @@
 import Vaonis from "../assets/Images/vaonis.png";
 import Aiyanna from "../assets/Images/aiyanna.png";
-import Rentora from "../assets/Images/rentora.png";
 import Velaro from "../assets/Images/velaro.png";
 import Renaissance from "../assets/Images/renaissance.png";
-import Krypo from "../assets/Images/krypo.png";
 
 import { FaHtml5 } from "react-icons/fa";
 
