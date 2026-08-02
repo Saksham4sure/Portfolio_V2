@@ -32,7 +32,7 @@ function Project({ title, img, descri, techno, link, about, idx }) {
         <div className="flex justify-between items-center mt-2">
           <div className="text-[#999999] flex gap-2 text-xs md:text-sm items-center cursor-default">
             {techno.map((t) => (
-              <p>{t}</p>
+              <p key={t}>{t}</p>
             ))}
           </div>
           <a className="flex gap-2 text-lg items-center justify-center w-30 rounded-full py-px text-[#eeeeee] bg-[#222222]" href={link} target="_blank" >Visit <i className="ri-arrow-right-long-line"></i></a>

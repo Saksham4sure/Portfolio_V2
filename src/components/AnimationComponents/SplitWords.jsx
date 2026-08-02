@@ -9,6 +9,7 @@ const SplitWords = ({children, className="", delay}) => {
     const wordRef = useRef(null);
 
     useGSAP(()=>{
+
         if(wordRef.current){
             const split = new SplitText(wordRef.current, { type: "words", mask: "words"});
 
