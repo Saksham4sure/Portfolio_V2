@@ -106,12 +106,12 @@ const Navbar = () => {
                     <h1 ref={logoRef} className="text-5xl flex items-end">S<span className='text-xl'>x.</span></h1>
                 </div>
                 <div className="menu flex items-center justify-center gap-2 h-full">
-                    <div className="hamburger rounded-full h-14 w-14 bg-[#FFFFFF] flex flex-col gap-1 items-center justify-center cursor-pointer" onClick={toggleMenu}>
+                    <div className="hamburger rounded-full h-14 w-14 bg-[#fefefe] border-zinc-200 border flex flex-col gap-1 items-center justify-center cursor-pointer" onClick={toggleMenu}>
                         <div ref={topLine} className='bg-black w-[28px] h-[2px]'></div>
                         <div ref={bottomLine} className='bg-black w-[28px] h-[2px]'></div>
                     </div>
                     <div className='hidden md:flex'>
-                        <p ref={butnRef} className='text-xs px-3 py-1 bg-[#eee] rounded-full'>sakshamorig123@gmail.com</p>
+                        <p ref={butnRef} className='text-xs px-3 py-1 bg-[#fefefe] border-zinc-200 border rounded-full'>sakshamorig123@gmail.com</p>
                     </div>
                 </div>
             </div>
