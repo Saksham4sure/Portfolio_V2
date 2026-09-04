@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import Skills from "../components/SkillComponents/Skills";
+import SkillCard from "../components/SkillComponents/Skills";
 import Titles from "../components/Titles";
 import { aboutPara1, aboutPara2, skillTiles, titles } from "../constants";
 import gsap from "gsap";
@@ -14,6 +14,7 @@ const About = () => {
   const mainText = useRef(null);
   const secondText = useRef(null);
   const sectionRef = useRef(null);
+  const skillsGridRef = useRef(null);
 
   useGSAP(() => {
     const text1 = mainText.current.querySelectorAll("span");
@@ -95,21 +96,19 @@ const About = () => {
         </div>
       </div>
 
-      <div className="md:pt-10 pb-10">
+      <div className="md:pt-10 pb-10 w-full">
         <Titles title={titles[0].title} text={titles[0].text} />
-        <div className="flex items-center justify-center flex-col">
-          <div>
-            {skillTiles.map((skill) => (
-              <Skills
-                key={skill.skill}
-                skill={skill.skill}
-                desc={skill.desc}
-                marq={skill.marq}
-              />
-            ))}
-
-          </div>
-          <div className="bg-stone-500 h-[1px] w-[80vw] rounded-full"></div>
+        <div className="flex flex-wrap justify-center gap-5 px-6 md:px-16 max-w-6xl mx-auto">
+          {skillTiles.map((skill, index) => (
+            <SkillCard
+              key={skill.skill}
+              skill={skill.skill}
+              desc={skill.desc}
+              marq={skill.marq}
+              icon={skill.icon}
+              index={index}
+            />
+          ))}
         </div>
       </div>
     </div>

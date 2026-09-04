@@ -1,66 +1,152 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef } from "react";
 
-function Skill({ skill, desc, marq }) {
-  const skillRef = useRef(null);
-  const descRef = useRef(null);
-  const bgRef = useRef(null);
-  const tl = useRef(null);
+gsap.registerPlugin(ScrollTrigger);
+
+function SkillCard({ skill, desc, marq, icon, index }) {
+  const cardRef = useRef(null);
+  const cardInnerRef = useRef(null);
 
   useGSAP(() => {
-    tl.current = gsap.timeline({ paused: true, defaults: { ease: "power3.out" } })
-      .to(skillRef.current, {
-        x: -20,
-        color: "#222222",
-        duration: 0.6,
-      })
-      .to(descRef.current, {
-        x: 20,
-        color: "#222222",
-        duration: 0.6,
-      }, "<")
+    // Entrance fade-in for each card
+    gsap.from(cardRef.current, {
+      y: 35,
+      opacity: 0,
+      scale: 0.94,
+      duration: 0.6,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: cardRef.current,
+        start: "top 95%",
+        toggleActions: "play none none none",
+      },
+      delay: (index % 3) * 0.08,
+    });
 
-      .fromTo(bgRef.current,
-        { clipPath: "inset(50% 0% 50% 0%)" }, 
-        { clipPath: "inset(0% 0% 0% 0%)", duration: 0.4, ease: "expo.inOut" }, 
-        "<"
-      );
-  });
+    // Individual card scroll-tracked flip:
+    // Staggered by column index so cards flip ONE BY ONE in sequence!
+    // Card 0 starts at 92%, ends at 62%
+    // Card 1 starts at 84%, ends at 54%
+    // Card 2 starts at 76%, ends at 46%
+    // Card 3 starts at 68%, ends at 38%
+    // Every single card completes 100% of its flip by 38%-62% (lower/middle viewport),
+    // long before the card or section travels up off the screen!
+    const step = index % 4;
+    const startY = 92 - step * 8;
+    const endY = 60 - step * 8;
 
-  const enter = () => tl.current.play();
-  const leave = () => tl.current.reverse();
+    gsap.to(cardInnerRef.current, {
+      rotateY: 180,
+      force3D: true,
+      ease: "power1.inOut",
+      scrollTrigger: {
+        trigger: cardRef.current,
+        start: `top ${startY}%`,
+        end: `top ${endY}%`,
+        scrub: 0.8,
+      },
+    });
+  }, [index]);
 
   return (
-    <div className="flex flex-col items-center justify-center">
-      <div className="bg-stone-500 h-[1px] rounded-full w-[80vw]"></div>
-
+    <div
+      ref={cardRef}
+      className="w-full max-w-[240px] mx-auto cursor-default"
+      style={{ perspective: "1200px" }}
+    >
       <div
-        className="relative py-10 px-4 md:px-20 flex items-center w-[100vw]"
-        onMouseEnter={enter}
-        onMouseLeave={leave}
+        ref={cardInnerRef}
+        className="relative w-full"
+        style={{
+          transformStyle: "preserve-3d",
+          aspectRatio: "3 / 3.8",
+          willChange: "transform",
+        }}
       >
+        {/* ===== FRONT FACE (B&W Minimal Dark Card) ===== */}
         <div
-          ref={bgRef}
-          className="absolute inset-0 z-10 flex items-center bg-[#FFFFFF] text-[#222222] uppercase origin-left cursor-default"
-          style={{ clipPath: "inset(100% 0% 0% 0%)" }}
+          className="absolute inset-0 rounded-2xl flex flex-col items-center justify-between py-7 px-5 border border-white/[0.08] overflow-hidden shadow-lg"
+          style={{
+            backfaceVisibility: "hidden",
+            WebkitBackfaceVisibility: "hidden",
+            background: "linear-gradient(145deg, #181818, #0d0d0d)",
+          }}
         >
-          <div className="flex moveX">
-            <h1 className="text-[15vh] md:text-[20vh] whitespace-nowrap leading-0">{marq}</h1>
-            <h1 className="text-[15vh] md:text-[20vh] whitespace-nowrap leading-0">{marq}</h1>
+          {/* Subtle noise texture */}
+          <div
+            className="absolute inset-0 opacity-[0.035] pointer-events-none rounded-2xl"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+            }}
+          />
+
+          <div className="flex-1 flex items-center justify-center">
+            <img
+              src={icon}
+              alt={skill}
+              className="w-12 h-12 md:w-14 md:h-14"
+              style={{ filter: "brightness(0) invert(1) opacity(0.7)" }}
+            />
           </div>
-          <div className="flex moveX">
-            <h1 className="text-[15vh] md:text-[20vh] whitespace-nowrap leading-0">{marq}</h1>
-            <h1 className="text-[15vh] md:text-[20vh] whitespace-nowrap leading-0">{marq}</h1>
+          <div className="text-center">
+            <h3 className="text-xl md:text-2xl bold text-white/90 tracking-wider uppercase">
+              {skill}
+            </h3>
+            <p className="text-xs md:text-sm light text-white/35 mt-1 tracking-wide">
+              {desc}
+            </p>
           </div>
         </div>
 
-        <div className="w-full flex items-center px-10 md:px-32 pointer-events-none">
-          <div ref={skillRef} className="w-3/4 md:w-4/5 md:pl-10">
-            <h1 className="text-4xl md:text-6xl">{skill}</h1>
+        {/* ===== BACK FACE (Light Holographic Glassmorphism with Multiply Blended Content) ===== */}
+        <div
+          className="absolute inset-0 rounded-2xl light-holo-card holo-card-glow flex flex-col items-center justify-between py-7 px-5 overflow-hidden"
+          style={{
+            backfaceVisibility: "hidden",
+            WebkitBackfaceVisibility: "hidden",
+            transform: "rotateY(180deg)",
+          }}
+        >
+          {/* Organic Aurora holographic fluid background */}
+          <div className="absolute inset-0 holo-aurora rounded-2xl" />
+
+          {/* Top ambient card indicator with multiply */}
+          <div
+            className="relative z-10 w-full flex justify-between items-center text-[10px] tracking-widest uppercase font-mono text-[#251f28]"
+            style={{ mixBlendMode: "multiply", opacity: 0.45 }}
+          >
+            <span>SKILL</span>
+            <span>0{index + 1}</span>
           </div>
-          <div ref={descRef} className="w-1/4 md:w-1/5 text-sm">
-            <h2>{desc}</h2>
+
+          {/* Glass border reflection + inner shine */}
+          <div
+            className="absolute inset-0 rounded-2xl pointer-events-none"
+            style={{
+              border: "1px solid rgba(255, 255, 255, 0.4)",
+              boxShadow: "inset 0 1px 0 rgba(255, 255, 255, 0.6)",
+            }}
+          />
+
+          {/* Center icon blending with multiply effect into background gradient */}
+          <div className="relative z-10 flex-1 flex items-center justify-center">
+            <img
+              src={icon}
+              alt={skill}
+              className="w-12 h-12 md:w-14 md:h-14 holo-multiply-icon"
+            />
+          </div>
+
+          {/* Bottom typography blending with multiply effect */}
+          <div className="relative z-10 text-center">
+            <h3 className="text-xl md:text-2xl bold tracking-wider uppercase holo-multiply-title">
+              {skill}
+            </h3>
+            <p className="text-xs md:text-[13px] mt-1.5 tracking-wide cardo italic holo-multiply-subtext">
+              {marq}
+            </p>
           </div>
         </div>
       </div>
@@ -68,4 +154,4 @@ function Skill({ skill, desc, marq }) {
   );
 }
 
-export default Skill;
+export default SkillCard;

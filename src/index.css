@@ -86,3 +86,98 @@ html {
 .clippy {
   clip-path: polygon(0 1%, 100% 0, 100% 100%, 20% 100%);
 }
+
+/* ===== Light Holographic Glassmorphism ===== */
+@keyframes holoBlob {
+  0% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
+  25% { transform: translate(12%, -8%) scale(1.12) rotate(5deg); }
+  50% { transform: translate(-8%, 12%) scale(0.95) rotate(-4deg); }
+  75% { transform: translate(8%, 8%) scale(1.06) rotate(3deg); }
+  100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
+}
+
+@keyframes holoBlob2 {
+  0% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
+  33% { transform: translate(-14%, 8%) scale(1.1) rotate(-6deg); }
+  66% { transform: translate(8%, -12%) scale(0.92) rotate(4deg); }
+  100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
+}
+
+@keyframes textShimmer {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.light-holo-card {
+  background: #ebe5ee;
+}
+
+/* Optimized, lightweight card glow that doesn't cause GPU fillrate lag */
+.holo-card-glow {
+  box-shadow:
+    0 10px 25px -5px rgba(0, 0, 0, 0.08),
+    0 0 16px rgba(215, 185, 255, 0.22);
+}
+
+.holo-aurora {
+  background: #ebe5ee;
+  overflow: hidden;
+}
+
+/* Layer 1: Smooth iridescent color clouds without expensive blur filter */
+.holo-aurora::before {
+  content: '';
+  position: absolute;
+  inset: -20%;
+  border-radius: inherit;
+  background:
+    radial-gradient(ellipse 65% 60% at 20% 20%, #dcaad6 0%, transparent 68%),
+    radial-gradient(ellipse 55% 65% at 80% 18%, #b8c8f5 0%, transparent 65%),
+    radial-gradient(ellipse 60% 55% at 50% 85%, #b5e5cb 0%, transparent 70%),
+    radial-gradient(ellipse 50% 60% at 18% 75%, #f2d7b4 0%, transparent 62%),
+    radial-gradient(ellipse 55% 50% at 82% 70%, #dfb5ed 0%, transparent 65%),
+    radial-gradient(ellipse 65% 55% at 42% 38%, #b2dff0 0%, transparent 70%);
+  animation: holoBlob 6s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* Layer 2: Radiant highlights & warm amber-peach blooms without blur filter */
+.holo-aurora::after {
+  content: '';
+  position: absolute;
+  inset: -15%;
+  border-radius: inherit;
+  background:
+    radial-gradient(ellipse 55% 60% at 75% 28%, rgba(210, 165, 255, 0.5) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 55% at 25% 75%, rgba(255, 195, 155, 0.45) 0%, transparent 58%),
+    radial-gradient(ellipse 50% 55% at 50% 50%, rgba(165, 240, 215, 0.35) 0%, transparent 62%),
+    radial-gradient(ellipse 55% 65% at 15% 30%, rgba(255, 235, 195, 0.35) 0%, transparent 55%);
+  animation: holoBlob2 7s ease-in-out infinite;
+  mix-blend-mode: overlay;
+  will-change: transform;
+}
+
+/* Multiply blend mode icon: converts SVG to clean silhouette that multiplies into background aurora */
+.holo-multiply-icon {
+  filter: brightness(0);
+  opacity: 0.65;
+  mix-blend-mode: multiply;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Multiply blend mode title: rich dark tone multiplying with underlying colors */
+.holo-multiply-title {
+  color: #1a1520;
+  mix-blend-mode: multiply;
+  opacity: 0.86;
+  letter-spacing: 0.06em;
+}
+
+/* Multiply blend mode subtext */
+.holo-multiply-subtext {
+  color: #322836;
+  mix-blend-mode: multiply;
+  opacity: 0.75;
+  line-height: 1.45;
+}
