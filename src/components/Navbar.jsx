@@ -153,19 +153,29 @@ const Navbar = () => {
             <div
                 ref={navbar}
                 className='w-full fixed top-0 left-0 z-50 pointer-events-none bg-transparent'
-                style={{ transform: "translateZ(0)", isolation: "isolate" }}
+                style={{ transform: "translateZ(0)" }}
             >
                 {/* Navbar content without background color */}
                 <div className='flex w-full justify-between items-center px-6 md:px-10 py-4 relative z-10'>
-                    <div className="logo z-30 cursor-default pointer-events-auto">
-                        <h1
-                            ref={logoRef}
-                            className={`text-4xl md:text-5xl flex items-end font-bold select-none tracking-tight drop-shadow-sm transition-colors duration-300 ${
-                                theme === 'dark' || isOpen ? 'text-white' : 'text-zinc-900'
-                            }`}
+                    <div className="logo z-30 pointer-events-auto flex items-center">
+                        <a
+                            href="#"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                window.scrollTo({ top: 0, behavior: 'smooth' });
+                            }}
+                            className="cursor-pointer focus:outline-none select-none transition-transform duration-200 hover:scale-105 active:scale-95"
+                            aria-label="Saksham"
                         >
-                            S<span className='text-xl'>x.</span>
-                        </h1>
+                            <img
+                                ref={logoRef}
+                                src="/saksham-logo.svg"
+                                alt="Saksham"
+                                className={`h-4 sm:h-[18px] md:h-5 w-auto transition-all duration-300 drop-shadow-sm ${
+                                    theme === 'dark' || isOpen ? 'brightness-0 invert' : 'brightness-0'
+                                }`}
+                            />
+                        </a>
                     </div>
 
                     <div className="menu flex items-center justify-center gap-3 h-full pointer-events-auto">
