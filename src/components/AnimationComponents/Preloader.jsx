@@ -90,20 +90,23 @@ export default function Preloader({ ready, setLoading }) {
   return (
     <div
       ref={containerRef}
-      className="fixed bg-[#252525] h-[100vh] w-[100vw] flex flex-col items-center justify-center z-[9999]"
+      className="fixed inset-0 bg-[#252525] h-screen h-[100dvh] w-screen w-[100dvw] flex flex-col items-center justify-center z-[9999] overflow-hidden"
     >
       {/* Center greeting text */}
       <p
         ref={textRef}
-        className="text-white text-5xl font-light tracking-wide text-center"
+        className="text-white text-4xl sm:text-5xl font-light tracking-wide text-center"
       >
         • Hello
       </p>
 
-      {/* Bottom center: Loading bar above percentage counter */}
-      <div className="absolute bottom-8 md:bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3">
+      {/* Bottom center: Loading bar above percentage counter (visible on mobile) */}
+      <div
+        className="absolute bottom-12 sm:bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3.5 z-20 w-full max-w-[240px] px-4"
+        style={{ paddingBottom: "env(safe-area-inset-bottom, 12px)" }}
+      >
         {/* Loading bar */}
-        <div className="w-48 md:w-56 h-[2px] bg-white/10 rounded-full overflow-hidden">
+        <div className="w-full h-[3px] bg-white/20 rounded-full overflow-hidden">
           <div
             ref={progressBarRef}
             className="h-full bg-white rounded-full origin-left"
@@ -114,7 +117,7 @@ export default function Preloader({ ready, setLoading }) {
         {/* Percentage */}
         <span
           ref={percentRef}
-          className="text-xs light text-white/50 tracking-widest font-mono"
+          className="text-xs font-medium text-white/75 tracking-widest font-mono select-none"
         >
           0%
         </span>

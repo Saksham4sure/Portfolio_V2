@@ -113,11 +113,20 @@ html {
   background: #ebe5ee;
 }
 
-/* Optimized, lightweight card glow that doesn't cause GPU fillrate lag */
+/* Subtle, elegant iridescent glow on the skill card */
 .holo-card-glow {
   box-shadow:
-    0 10px 25px -5px rgba(0, 0, 0, 0.08),
-    0 0 16px rgba(215, 185, 255, 0.22);
+    0 10px 25px -5px rgba(0, 0, 0, 0.15),
+    0 0 22px rgba(215, 185, 255, 0.42),
+    0 0 45px rgba(185, 215, 255, 0.25);
+  transition: box-shadow 0.3s ease;
+}
+
+.holo-card-glow:hover {
+  box-shadow:
+    0 12px 30px -5px rgba(0, 0, 0, 0.2),
+    0 0 30px rgba(215, 185, 255, 0.58),
+    0 0 60px rgba(185, 215, 255, 0.35);
 }
 
 .holo-aurora {
