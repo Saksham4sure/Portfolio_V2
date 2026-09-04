@@ -2,7 +2,10 @@ import React, { useEffect, useRef, useState } from 'react'
 import { navLinks, socialMedias } from '../constants';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Link } from 'react-scroll';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Navbar = () => {
     const navRef = useRef(null);
@@ -16,6 +19,7 @@ const Navbar = () => {
     const butnRef = useRef(null);
     const [isOpen, setIsOpen] = useState(false);
     const navbar = useRef(null);
+    const logoColorRef = useRef("#181818");
 
     useEffect(() => {
         if (isOpen) {
@@ -46,7 +50,41 @@ const Navbar = () => {
             y: 20
         });
         gsap.set(logoRef.current, {
-            color: "#444444",
+            color: "#181818",
+        });
+
+        // Dynamic logo color adaptation:
+        // White on dark/gray sections (#skills, #contact)
+        // Deep crisp black on light sections (Hero, #projects)
+        const updateLogoColor = (color) => {
+            if (logoColorRef.current === color) return;
+            logoColorRef.current = color;
+            gsap.to(logoRef.current, {
+                color: color,
+                duration: 0.35,
+                ease: "power2.out",
+                overwrite: "auto",
+            });
+        };
+
+        ScrollTrigger.create({
+            trigger: "#skills",
+            start: "top 60px",
+            end: "bottom 60px",
+            onEnter: () => updateLogoColor("#ffffff"),
+            onLeave: () => updateLogoColor("#181818"),
+            onEnterBack: () => updateLogoColor("#ffffff"),
+            onLeaveBack: () => updateLogoColor("#181818"),
+        });
+
+        ScrollTrigger.create({
+            trigger: "#contact",
+            start: "top 60px",
+            end: "bottom 60px",
+            onEnter: () => updateLogoColor("#ffffff"),
+            onLeave: () => updateLogoColor("#181818"),
+            onEnterBack: () => updateLogoColor("#ffffff"),
+            onLeaveBack: () => updateLogoColor("#181818"),
         });
 
         tl.current = gsap.timeline({ paused: true }).to(navRef.current, {
@@ -92,6 +130,11 @@ const Navbar = () => {
         if (isOpen) {
             tl.current.reverse();
             burgerTl.current.reverse();
+            gsap.to(logoRef.current, {
+                color: logoColorRef.current,
+                duration: 0.4,
+                ease: "power2.out"
+            });
         } else {
             tl.current.play();
             burgerTl.current.play();
@@ -101,11 +144,21 @@ const Navbar = () => {
 
     return (
         <>
-            <div ref={navbar} className='flex w-full justify-between items-center px-10 py-4 fixed z-50'>
-                <div className="logo z-30 cursor-default">
-                    <h1 ref={logoRef} className="text-5xl flex items-end">S<span className='text-xl'>x.</span></h1>
+            <div
+                ref={navbar}
+                className='flex w-full justify-between items-center px-6 md:px-10 py-4 fixed top-0 left-0 z-50 pointer-events-none'
+                style={{ transform: "translateZ(0)", isolation: "isolate" }}
+            >
+                <div className="logo z-30 cursor-default pointer-events-auto">
+                    <h1
+                        ref={logoRef}
+                        className="text-4xl md:text-5xl flex items-end font-bold select-none drop-shadow-sm"
+                        style={{ willChange: "color, transform", transform: "translateZ(0)" }}
+                    >
+                        S<span className='text-xl'>x.</span>
+                    </h1>
                 </div>
-                <div className="menu flex items-center justify-center gap-2 h-full">
+                <div className="menu flex items-center justify-center gap-2 h-full pointer-events-auto">
                     <div className="hamburger rounded-full h-14 w-14 bg-[#fefefe] border-zinc-200 border flex flex-col gap-1 items-center justify-center cursor-pointer" onClick={toggleMenu}>
                         <div ref={topLine} className='bg-black w-[28px] h-[2px]'></div>
                         <div ref={bottomLine} className='bg-black w-[28px] h-[2px]'></div>
