@@ -9,6 +9,13 @@
 }
 
 @font-face {
+  font-family: 'Satoshi';
+  src: url('/font/Satoshi-Bold.otf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
   font-family: 'SatoshiBold';
   src: url('/font/Satoshi-Bold.otf') format('truetype');
   font-weight: normal;
@@ -180,26 +187,28 @@ html {
   will-change: transform;
 }
 
-/* Multiply blend mode icon: converts SVG to clean silhouette that multiplies into background aurora */
-.holo-multiply-icon {
-  filter: brightness(0);
-  opacity: 0.65;
-  mix-blend-mode: multiply;
-  transition: opacity 0.3s ease, transform 0.3s ease;
+/* Overlay blend mode icon: adapts background gradient colors & texture in rich dark tones */
+.holo-overlay-icon {
+  mix-blend-mode: overlay;
+  opacity: 1;
+  filter: contrast(1.4) drop-shadow(0 1px 2px rgba(0, 0, 0, 0.15));
+  transition: transform 0.3s ease;
 }
 
-/* Multiply blend mode title: rich dark tone multiplying with underlying colors */
-.holo-multiply-title {
-  color: #1a1520;
-  mix-blend-mode: multiply;
-  opacity: 0.86;
+/* Overlay blend mode title: adapts background gradient colors & texture with high contrast */
+.holo-overlay-title {
+  font-family: 'SatoshiBold', sans-serif;
+  font-weight: bold;
+  color: #000000;
+  mix-blend-mode: overlay;
   letter-spacing: 0.06em;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
 }
 
-/* Multiply blend mode subtext */
-.holo-multiply-subtext {
-  color: #322836;
-  mix-blend-mode: multiply;
-  opacity: 0.75;
+/* Overlay blend mode subtext: adapts background gradient colors & texture with high contrast */
+.holo-overlay-subtext {
+  color: rgba(0, 0, 0, 0.92);
+  mix-blend-mode: overlay;
   line-height: 1.45;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
 }

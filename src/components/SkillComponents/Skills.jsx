@@ -84,20 +84,20 @@ function SkillCard({ skill, desc, marq, icon, index }) {
               src={icon}
               alt={skill}
               className="w-12 h-12 md:w-14 md:h-14"
-              style={{ filter: "brightness(0) invert(1) opacity(0.75)" }}
+              style={{ filter: "brightness(0) invert(1) opacity(0.8)" }}
             />
           </div>
           <div className="text-center">
             <h3 className="text-xl md:text-2xl bold tracking-wider uppercase text-white/90">
               {skill}
             </h3>
-            <p className="text-xs md:text-sm light mt-1 tracking-wide text-white/35">
+            <p className="text-xs md:text-sm light mt-1 tracking-wide text-white/40">
               {desc}
             </p>
           </div>
         </div>
 
-        {/* ===== BACK FACE (Light Holographic Glassmorphism with Multiply Blended Content) ===== */}
+        {/* ===== BACK FACE (Light Holographic Card with Blended Dark Content) ===== */}
         <div
           className="absolute inset-0 rounded-2xl light-holo-card holo-card-glow flex flex-col items-center justify-between py-7 px-5 overflow-hidden"
           style={{
@@ -109,10 +109,21 @@ function SkillCard({ skill, desc, marq, icon, index }) {
           {/* Organic Aurora holographic fluid background */}
           <div className="absolute inset-0 holo-aurora rounded-2xl" />
 
-          {/* Top ambient card indicator with multiply */}
+          {/* Subtle noise texture */}
           <div
-            className="relative z-10 w-full flex justify-between items-center text-[10px] tracking-widest uppercase font-mono text-[#251f28]"
-            style={{ mixBlendMode: "multiply", opacity: 0.45 }}
+            className="absolute inset-0 opacity-[0.05] pointer-events-none rounded-2xl"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+            }}
+          />
+
+          {/* Top ambient card indicator */}
+          <div
+            className="relative w-full flex justify-between items-center text-[10px] tracking-widest uppercase font-mono"
+            style={{
+              color: "rgba(0, 0, 0, 0.8)",
+              mixBlendMode: "overlay",
+            }}
           >
             <span>SKILL</span>
             <span>0{index + 1}</span>
@@ -127,21 +138,41 @@ function SkillCard({ skill, desc, marq, icon, index }) {
             }}
           />
 
-          {/* Center icon blending with multiply effect into background gradient */}
-          <div className="relative z-10 flex-1 flex items-center justify-center">
+          {/* Center icon: overlay blending adapts background gradient and texture */}
+          <div className="relative flex-1 flex items-center justify-center" style={{ mixBlendMode: "overlay" }}>
             <img
               src={icon}
               alt={skill}
-              className="w-12 h-12 md:w-14 md:h-14 holo-multiply-icon"
+              className="w-12 h-12 md:w-14 md:h-14 transition-transform duration-300 hover:scale-110 object-contain holo-overlay-icon"
+              style={{
+                mixBlendMode: "overlay",
+                opacity: 1,
+                filter: "contrast(1.4) drop-shadow(0 1px 2px rgba(0, 0, 0, 0.15))",
+              }}
             />
           </div>
 
-          {/* Bottom typography blending with multiply effect */}
-          <div className="relative z-10 text-center">
-            <h3 className="text-xl md:text-2xl bold tracking-wider uppercase holo-multiply-title">
+          {/* Bottom typography: overlay blending adapts background gradient and texture */}
+          <div className="relative text-center" style={{ mixBlendMode: "overlay" }}>
+            <h3
+              className="text-xl md:text-2xl bold tracking-wider uppercase holo-overlay-title"
+              style={{
+                fontFamily: "'SatoshiBold', sans-serif",
+                color: "#000000",
+                mixBlendMode: "overlay",
+                textShadow: "0 1px 2px rgba(0, 0, 0, 0.15)",
+              }}
+            >
               {skill}
             </h3>
-            <p className="text-xs md:text-[13px] mt-1.5 tracking-wide cardo italic holo-multiply-subtext">
+            <p
+              className="text-xs md:text-[13px] mt-1.5 tracking-wide cardo italic holo-overlay-subtext"
+              style={{
+                color: "rgba(0, 0, 0, 0.92)",
+                mixBlendMode: "overlay",
+                textShadow: "0 1px 1px rgba(0, 0, 0, 0.1)",
+              }}
+            >
               {marq}
             </p>
           </div>
