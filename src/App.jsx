@@ -8,6 +8,7 @@ import Contact from './Sections/Contact'
 import Hero from './Sections/Hero'
 import Projects from './Sections/Projects'
 import { projectItems } from './constants'
+import { useTheme } from "./context/ThemeContext";
 
 const imagesToPreload = [
   "/saksham.jpg",
@@ -55,6 +56,7 @@ async function preloadFonts() {
 }
 
 function App() {
+  const { theme } = useTheme();
   const [loading, setLoading] = useState(true);
   const [ready, setReady] = useState(false);
 
@@ -106,9 +108,21 @@ function App() {
       </div>
 
       {!loading && (
-        <div className="overflow-x-hidden">
+        <div
+          className={`overflow-x-hidden min-h-screen transition-colors duration-300 ${
+            theme === "dark" ? "bg-[#121214] text-white" : "bg-[#f8f8fa] text-zinc-900"
+          }`}
+        >
           <Navbar />
           <Hero />
+          {/* Divider line between Home and About section */}
+          <div className="w-full px-6 md:px-14 max-w-7xl mx-auto relative z-20">
+            <div
+              className={`w-full h-[1px] rounded-full transition-colors duration-300 ${
+                theme === "dark" ? "bg-white/10" : "bg-zinc-200"
+              }`}
+            />
+          </div>
           <About />
           <Projects />
           <Contact />

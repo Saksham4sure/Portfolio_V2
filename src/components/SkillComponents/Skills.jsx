@@ -2,10 +2,13 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef } from "react";
+import { useTheme } from "../../context/ThemeContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
 function SkillCard({ skill, desc, marq, icon, index }) {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
   const cardRef = useRef(null);
   const cardInnerRef = useRef(null);
 
@@ -27,12 +30,6 @@ function SkillCard({ skill, desc, marq, icon, index }) {
 
     // Individual card scroll-tracked flip:
     // Staggered by column index so cards flip ONE BY ONE in sequence!
-    // Card 0 starts at 92%, ends at 62%
-    // Card 1 starts at 84%, ends at 54%
-    // Card 2 starts at 76%, ends at 46%
-    // Card 3 starts at 68%, ends at 38%
-    // Every single card completes 100% of its flip by 38%-62% (lower/middle viewport),
-    // long before the card or section travels up off the screen!
     const step = index % 4;
     const startY = 92 - step * 8;
     const endY = 60 - step * 8;
@@ -65,13 +62,13 @@ function SkillCard({ skill, desc, marq, icon, index }) {
           willChange: "transform",
         }}
       >
-        {/* ===== FRONT FACE (B&W Minimal Dark Card) ===== */}
+        {/* ===== FRONT FACE (Always Minimal Dark Card) ===== */}
         <div
-          className="absolute inset-0 rounded-2xl flex flex-col items-center justify-between py-7 px-5 border border-white/[0.08] overflow-hidden shadow-lg"
+          className="absolute inset-0 rounded-2xl flex flex-col items-center justify-between py-7 px-5 border border-white/[0.08] overflow-hidden shadow-xl shadow-black/40"
           style={{
             backfaceVisibility: "hidden",
             WebkitBackfaceVisibility: "hidden",
-            background: "linear-gradient(145deg, #181818, #0d0d0d)",
+            background: "linear-gradient(145deg, #18181c, #0f0f12)",
           }}
         >
           {/* Subtle noise texture */}
@@ -87,14 +84,14 @@ function SkillCard({ skill, desc, marq, icon, index }) {
               src={icon}
               alt={skill}
               className="w-12 h-12 md:w-14 md:h-14"
-              style={{ filter: "brightness(0) invert(1) opacity(0.7)" }}
+              style={{ filter: "brightness(0) invert(1) opacity(0.75)" }}
             />
           </div>
           <div className="text-center">
-            <h3 className="text-xl md:text-2xl bold text-white/90 tracking-wider uppercase">
+            <h3 className="text-xl md:text-2xl bold tracking-wider uppercase text-white/90">
               {skill}
             </h3>
-            <p className="text-xs md:text-sm light text-white/35 mt-1 tracking-wide">
+            <p className="text-xs md:text-sm light mt-1 tracking-wide text-white/35">
               {desc}
             </p>
           </div>

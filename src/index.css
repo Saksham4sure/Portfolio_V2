@@ -36,7 +36,20 @@
 }
 
 :root {
-  color: #222222;
+  font-family: 'Satoshi', sans-serif;
+  color-scheme: dark light;
+}
+
+html.dark,
+body.dark {
+  background-color: #121214;
+  color: #ffffff;
+}
+
+html.light,
+body.light {
+  background-color: #f8f8fa;
+  color: #121214;
 }
 
 body,

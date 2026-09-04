@@ -5,16 +5,19 @@ import { aboutPara1, aboutPara2, skillTiles, titles } from "../constants";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { useTheme } from "../context/ThemeContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const About = () => {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
+
   const words1 = aboutPara1.split(" ");
   const words2 = aboutPara2.split(" ");
   const mainText = useRef(null);
   const secondText = useRef(null);
   const sectionRef = useRef(null);
-  const skillsGridRef = useRef(null);
 
   useGSAP(() => {
     const text1 = mainText.current.querySelectorAll("span");
@@ -44,14 +47,21 @@ const About = () => {
   }, []);
 
   return (
-    <div id='skills' className="bg-[#222222] text-[#FFFFFF] flex flex-col items-center rounded-[40px] px-10">
+    <div
+      id="skills"
+      className={`flex flex-col items-center px-6 md:px-10 transition-colors duration-300 relative ${
+        isDark ? "bg-[#121214] text-white" : "bg-[#f8f8fa] text-zinc-900"
+      }`}
+    >
       <div
         ref={sectionRef}
         className="py-36 flex flex-col items-center justify-center gap-8 md:h-[70vh] md:w-[100vw] md:relative z-10"
       >
         <div
           ref={mainText}
-          className="text-3xl md:text-[2.5vw] md:absolute md:left-15 md:top-[35%] md:w-[70vw]  flex flex-wrap"
+          className={`text-3xl md:text-[2.5vw] md:absolute md:left-15 md:top-[35%] md:w-[70vw] flex flex-wrap transition-colors duration-300 ${
+            isDark ? "text-white" : "text-zinc-900"
+          }`}
         >
           {words1.map((word, i) => (
             <span className="mr-[6px] inline-block" key={i}>
@@ -62,7 +72,9 @@ const About = () => {
 
         <div
           ref={secondText}
-          className="text-xl md:text-[1.7vw] md:absolute md:right-15 md:w-[30vw] md:top-[60%] light flex flex-wrap"
+          className={`text-xl md:text-[1.7vw] md:absolute md:right-15 md:w-[30vw] md:top-[60%] light flex flex-wrap transition-colors duration-300 ${
+            isDark ? "text-zinc-300" : "text-zinc-700"
+          }`}
         >
           {words2.map((word, i) => (
             <span className="mr-[6px] inline-block" key={i}>
@@ -71,12 +83,14 @@ const About = () => {
           ))}
         </div>
       </div>
-      <div className="py-36 flex flex-col items-center justify-center gap-8 md:h-[70vh] md:w-[100vw] absolute px-10 text-[#464646]"
+
+      {/* Dim base text layer behind the scroll-revealed text */}
+      <div
+        className={`py-36 flex flex-col items-center justify-center gap-8 md:h-[70vh] md:w-[100vw] absolute px-6 md:px-10 pointer-events-none transition-colors duration-300 ${
+          isDark ? "text-white/15" : "text-zinc-300/80"
+        }`}
       >
-        <div
-          
-          className="text-3xl md:text-[2.5vw] md:absolute md:left-15 md:top-[35%] md:w-[70vw] flex flex-wrap"
-        >
+        <div className="text-3xl md:text-[2.5vw] md:absolute md:left-15 md:top-[35%] md:w-[70vw] flex flex-wrap">
           {words1.map((word, i) => (
             <span className="mr-[6px] inline-block" key={i}>
               {word}
@@ -84,10 +98,7 @@ const About = () => {
           ))}
         </div>
 
-        <div
-          
-          className="text-xl md:text-[1.7vw] md:absolute md:right-15 md:w-[30vw] md:top-[60%] light flex flex-wrap"
-        >
+        <div className="text-xl md:text-[1.7vw] md:absolute md:right-15 md:w-[30vw] md:top-[60%] light flex flex-wrap">
           {words2.map((word, i) => (
             <span className="mr-[6px] inline-block" key={i}>
               {word}
@@ -96,7 +107,7 @@ const About = () => {
         </div>
       </div>
 
-      <div className="md:pt-10 pb-10 w-full">
+      <div className="md:pt-10 pb-16 w-full">
         <Titles title={titles[0].title} text={titles[0].text} />
         <div className="flex flex-wrap justify-center gap-5 px-6 md:px-16 max-w-6xl mx-auto">
           {skillTiles.map((skill, index) => (
