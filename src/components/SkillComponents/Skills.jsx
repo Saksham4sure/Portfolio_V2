@@ -28,23 +28,45 @@ function SkillCard({ skill, desc, marq, icon, index }) {
       delay: (index % 3) * 0.08,
     });
 
-    // Individual card scroll-tracked flip:
-    // Staggered by column index so cards flip ONE BY ONE in sequence!
+    // Individual card scroll-tracked flip sequence:
+    // - Entrance flip at start (0 -> 180deg)
+    // - Stable reading hold in middle
+    // - Exit flip at end (180 -> 360deg)
     const step = index % 4;
     const startY = 92 - step * 8;
     const endY = 60 - step * 8;
+    const exitStartY = 20 - step * 8;
+    const exitEndY = -12 - step * 8;
 
-    gsap.to(cardInnerRef.current, {
-      rotateY: 180,
-      force3D: true,
-      ease: "power1.inOut",
+    const tl = gsap.timeline({
       scrollTrigger: {
         trigger: cardRef.current,
         start: `top ${startY}%`,
-        end: `top ${endY}%`,
+        end: `top ${exitEndY}%`,
         scrub: 0.8,
       },
     });
+
+    tl.fromTo(
+      cardInnerRef.current,
+      { rotateY: 0 },
+      {
+        rotateY: 180,
+        force3D: true,
+        ease: "power1.inOut",
+        duration: 32,
+      }
+    )
+      .to(cardInnerRef.current, {
+        rotateY: 180,
+        duration: 40,
+      })
+      .to(cardInnerRef.current, {
+        rotateY: 360,
+        force3D: true,
+        ease: "power1.inOut",
+        duration: 32,
+      });
   }, [index]);
 
   return (
@@ -117,12 +139,13 @@ function SkillCard({ skill, desc, marq, icon, index }) {
             }}
           />
 
-          {/* Top ambient card indicator */}
+          {/* Top ambient card indicator - darker overlay blend */}
           <div
-            className="relative w-full flex justify-between items-center text-[10px] tracking-widest uppercase font-mono"
+            className="relative w-full flex justify-between items-center text-[10px] tracking-widest uppercase font-mono font-bold"
             style={{
-              color: "rgba(0, 0, 0, 0.8)",
+              color: "#000000",
               mixBlendMode: "overlay",
+              textShadow: "0 1px 2px rgba(0, 0, 0, 0.25)",
             }}
           >
             <span>SKILL</span>
@@ -138,40 +161,28 @@ function SkillCard({ skill, desc, marq, icon, index }) {
             }}
           />
 
-          {/* Center icon: overlay blending adapts background gradient and texture */}
+          {/* Center icon: overlay blend with darker contrast */}
           <div className="relative flex-1 flex items-center justify-center" style={{ mixBlendMode: "overlay" }}>
             <img
               src={icon}
               alt={skill}
               className="w-12 h-12 md:w-14 md:h-14 transition-transform duration-300 hover:scale-110 object-contain holo-overlay-icon"
-              style={{
-                mixBlendMode: "overlay",
-                opacity: 1,
-                filter: "contrast(1.4) drop-shadow(0 1px 2px rgba(0, 0, 0, 0.15))",
-              }}
             />
           </div>
+          
 
-          {/* Bottom typography: overlay blending adapts background gradient and texture */}
+          {/* Bottom typography: overlay blend with darker contrast */}
           <div className="relative text-center" style={{ mixBlendMode: "overlay" }}>
             <h3
               className="text-xl md:text-2xl bold tracking-wider uppercase holo-overlay-title"
               style={{
                 fontFamily: "'SatoshiBold', sans-serif",
-                color: "#000000",
-                mixBlendMode: "overlay",
-                textShadow: "0 1px 2px rgba(0, 0, 0, 0.15)",
               }}
             >
               {skill}
             </h3>
             <p
               className="text-xs md:text-[13px] mt-1.5 tracking-wide cardo italic holo-overlay-subtext"
-              style={{
-                color: "rgba(0, 0, 0, 0.92)",
-                mixBlendMode: "overlay",
-                textShadow: "0 1px 1px rgba(0, 0, 0, 0.1)",
-              }}
             >
               {marq}
             </p>

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { contactLinks, socialMedias, titles } from "../constants";
 import Titles from "../components/Titles";
 import { Link } from "react-scroll";
@@ -8,6 +9,30 @@ const Contact = () => {
   const { theme } = useTheme();
   // Footer MUST remain opposite color of whole website theme
   const isFooterLight = theme === "dark";
+  const [copied, setCopied] = useState(false);
+
+  const handleCopyEmail = () => {
+    const email = "sakshamorig123@gmail.com";
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(email).catch(() => {
+        const textArea = document.createElement("textarea");
+        textArea.value = email;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textArea);
+      });
+    } else {
+      const textArea = document.createElement("textarea");
+      textArea.value = email;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textArea);
+    }
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   return (
     <>
@@ -98,13 +123,28 @@ const Contact = () => {
                 >
                   G-mail
                 </p>
-                <p
-                  className={`text-2xl tracking-wide light transition-colors duration-300 ${
-                    isFooterLight ? "text-zinc-800" : "text-white"
-                  }`}
+                <div
+                  onClick={handleCopyEmail}
+                  className="group inline-flex items-center gap-3 cursor-pointer select-none mt-0.5"
+                  title="Click to copy email"
                 >
-                  sakshamorig123@gmail.com
-                </p>
+                  <p
+                    className={`text-2xl tracking-wide light transition-colors duration-300 group-hover:opacity-75 ${
+                      isFooterLight ? "text-zinc-800" : "text-white"
+                    }`}
+                  >
+                    sakshamorig123@gmail.com
+                  </p>
+                  <span
+                    className={`text-xs px-2.5 py-1 rounded-full font-mono transition-all duration-300 ${
+                      copied
+                        ? "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 opacity-100 scale-100"
+                        : "opacity-0 scale-90 group-hover:opacity-70 group-hover:scale-95 text-zinc-400 border border-zinc-400/30"
+                    }`}
+                  >
+                    {copied ? "Copied! ✓" : "Copy"}
+                  </span>
+                </div>
               </div>
               <div>
                 <p

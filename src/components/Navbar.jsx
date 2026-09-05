@@ -19,6 +19,40 @@ const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const isOpenRef = useRef(false);
     const navbar = useRef(null);
+    const [copied, setCopied] = useState(false);
+
+    const handleCopyEmail = (e) => {
+        e?.stopPropagation();
+        const email = "sakshamorig123@gmail.com";
+        if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(email).catch(() => {
+                const textArea = document.createElement("textarea");
+                textArea.value = email;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand("copy");
+                document.body.removeChild(textArea);
+            });
+        } else {
+            const textArea = document.createElement("textarea");
+            textArea.value = email;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textArea);
+        }
+        setCopied(true);
+
+        // Tactile button spring pop animation
+        if (butnRef.current) {
+            gsap.timeline()
+                .to(butnRef.current, { scale: 0.92, duration: 0.1, ease: "power2.in" })
+                .to(butnRef.current, { scale: 1.08, duration: 0.2, ease: "back.out(2.5)" })
+                .to(butnRef.current, { scale: 1, duration: 0.2, ease: "power2.out" });
+        }
+
+        setTimeout(() => setCopied(false), 2000);
+    };
 
     useEffect(() => {
         isOpenRef.current = isOpen;
@@ -202,18 +236,53 @@ const Navbar = () => {
                             ></div>
                         </div>
 
-                        {/* Email Pill Button */}
+                        {/* Email Pill Button (Click to Copy with Slide & Pulse Animation) */}
                         <div className='hidden md:flex'>
-                            <p
+                            <button
                                 ref={butnRef}
-                                className={`text-xs px-3.5 py-2 rounded-full shadow-sm transition-colors duration-300 ${
+                                onClick={handleCopyEmail}
+                                title="Click to copy email"
+                                className={`relative text-xs px-3.5 py-2 rounded-full shadow-sm transition-all duration-300 cursor-pointer flex items-center justify-center overflow-hidden select-none will-change-transform ${
                                     theme === 'dark' || isOpen
-                                        ? 'bg-[#1e1e24] border border-white/15 text-white/80 shadow-black/20'
-                                        : 'bg-white border border-zinc-200/80 text-zinc-700 shadow-zinc-200/50'
+                                        ? 'bg-[#1e1e24] shadow-black/20'
+                                        : 'bg-white shadow-zinc-200/50'
+                                } ${
+                                    copied
+                                        ? (theme === 'dark' || isOpen
+                                            ? 'border border-emerald-500/50 text-emerald-400 shadow-lg shadow-emerald-500/10'
+                                            : 'border border-emerald-500/60 text-emerald-600 shadow-lg shadow-emerald-500/10')
+                                        : (theme === 'dark' || isOpen
+                                            ? 'border border-white/15 text-white/80 hover:bg-[#282832] hover:border-white/25 hover:text-white'
+                                            : 'border border-zinc-200/80 text-zinc-700 hover:bg-zinc-50 hover:border-zinc-300 hover:text-zinc-950')
                                 }`}
                             >
-                                sakshamorig123@gmail.com
-                            </p>
+                                {/* Rolling text container */}
+                                <div className="relative h-4 min-w-[155px] overflow-hidden flex flex-col justify-center items-center">
+                                    {/* Normal State: Email address */}
+                                    <span
+                                        className={`flex items-center justify-center gap-1.5 transition-all duration-300 transform ${
+                                            copied
+                                                ? '-translate-y-5 opacity-0 scale-90'
+                                                : 'translate-y-0 opacity-100 scale-100'
+                                        }`}
+                                    >
+                                        <span>sakshamorig123@gmail.com</span>
+                                        <i className="ri-file-copy-line text-xs opacity-50" />
+                                    </span>
+
+                                    {/* Active State: Copied with Checkmark */}
+                                    <span
+                                        className={`absolute inset-0 flex items-center justify-center gap-1.5 font-medium transition-all duration-300 transform ${
+                                            copied
+                                                ? 'translate-y-0 opacity-100 scale-100'
+                                                : 'translate-y-5 opacity-0 scale-90'
+                                        }`}
+                                    >
+                                        <i className="ri-checkbox-circle-fill text-sm text-emerald-400 animate-bounce" />
+                                        <span className="text-emerald-400 font-semibold tracking-wide">Copied!</span>
+                                    </span>
+                                </div>
+                            </button>
                         </div>
 
                         {/* Dark/Light Mode Switcher: Filled icon, placed at the end */}
@@ -244,9 +313,19 @@ const Navbar = () => {
                     ))}
                 </div>
                 <div ref={contactRef} className='absolute bottom-[10%] md:bottom-[4%] flex flex-col flex-wrap justify-between gap-x-8 gap-y-5 md:flex-row'>
-                    <div className='light'>
-                        <p className='text-white/50'>E-mail</p>
-                        <p className='tracking-wide lowercase text-sm text-white/90'>sakshamorig123@gmail.com</p>
+                    <div
+                        onClick={handleCopyEmail}
+                        className='light cursor-pointer group select-none'
+                        title="Click to copy email"
+                    >
+                        <p className='text-white/50 flex items-center gap-2'>
+                            <span>E-mail</span>
+                            {copied && <span className='text-xs text-emerald-400 font-mono'>Copied! ✓</span>}
+                        </p>
+                        <p className='tracking-wide lowercase text-sm text-white/90 group-hover:text-white transition-colors flex items-center gap-1.5'>
+                            sakshamorig123@gmail.com
+                            <i className="ri-file-copy-line text-xs opacity-50" />
+                        </p>
                     </div>
                     <div className='light'>
                         <p className='text-white/50'>Phone</p>
