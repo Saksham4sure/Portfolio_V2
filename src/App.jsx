@@ -109,12 +109,19 @@ function App() {
 
       {!loading && (
         <div
-          className={`relative overflow-x-hidden min-h-screen transition-colors duration-300 dot-grid-pattern ${
+          className={`relative overflow-x-hidden min-h-screen transition-colors duration-300 ${
             theme === "dark" ? "bg-[#121214] text-white" : "bg-[#f8f8fa] text-zinc-900"
           }`}
         >
-          <Navbar />
-          <Hero />
+          {/* Fixed Whole-Page Dot Grid */}
+          <div
+            className="fixed inset-0 pointer-events-none z-0 dot-grid-pattern"
+            aria-hidden="true"
+          />
+
+          <div className="relative z-10">
+            <Navbar />
+            <Hero />
             {/* Divider line between Home and About section */}
             <div className="w-full px-6 md:px-14 max-w-7xl mx-auto relative z-20">
               <div
@@ -126,6 +133,7 @@ function App() {
             <About />
             <Projects />
             <Contact />
+          </div>
         </div>
       )}
     </>

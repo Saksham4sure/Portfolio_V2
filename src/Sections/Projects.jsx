@@ -10,8 +10,8 @@ const Projects = () => {
   return (
     <div
       id="projects"
-      className={`relative transition-colors duration-300 py-20 ${
-        isDark ? "bg-[#121214] text-white" : "bg-[#f8f8fa] text-zinc-900"
+      className={`relative transition-colors duration-300 py-20 bg-transparent ${
+        isDark ? "text-white" : "text-zinc-900"
       }`}
     >
       {/* Section header */}

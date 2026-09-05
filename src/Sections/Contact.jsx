@@ -4,6 +4,7 @@ import Titles from "../components/Titles";
 import { Link } from "react-scroll";
 import { motion } from "framer-motion";
 import { useTheme } from "../context/ThemeContext";
+import AntigravityPlayground from "../components/AntigravityPlayground";
 
 const Contact = () => {
   const { theme } = useTheme();
@@ -72,7 +73,7 @@ const Contact = () => {
                 </p>
                 {contactLinks.map((navLinks, index) => (
                   <Link
-                    className={`tracking-wide text-3xl light cursor-pointer transition-colors ${
+                    className={`tracking-wide text-3xl light cursor-pointer transition-all duration-300 inline-block hover:translate-x-2 hover:-translate-y-0.5 ${
                       isFooterLight
                         ? "text-zinc-800 hover:text-black"
                         : "text-white hover:text-zinc-300"
@@ -98,7 +99,7 @@ const Contact = () => {
                 <div className="flex flex-wrap flex-col">
                   {socialMedias.map((socials, index) => (
                     <a
-                      className={`tracking-wide text-3xl light transition-colors ${
+                      className={`tracking-wide text-3xl light transition-all duration-300 inline-block hover:translate-x-2 hover:-translate-y-0.5 ${
                         isFooterLight
                           ? "text-zinc-800 hover:text-black"
                           : "text-white hover:text-zinc-300"
@@ -164,8 +165,12 @@ const Contact = () => {
               </div>
             </div>
           </div>
+
+          {/* Interactive Antigravity Zero-G Physics Playground */}
+          <AntigravityPlayground isLight={isFooterLight} />
+
           <motion.div
-            className={`h-[1px] rounded-full w-full transition-colors duration-300 ${
+            className={`h-[1px] rounded-full w-full mt-10 transition-colors duration-300 ${
               isFooterLight ? "bg-zinc-300" : "bg-white/20"
             }`}
           />

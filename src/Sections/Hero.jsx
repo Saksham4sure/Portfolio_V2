@@ -47,8 +47,8 @@ const Hero = () => {
 
   return (
     <div
-      className={`transition-colors duration-300 ${
-        isDark ? "bg-[#121214] text-white" : "bg-[#f8f8fa] text-zinc-900"
+      className={`transition-colors duration-300 bg-transparent ${
+        isDark ? "text-white" : "text-zinc-900"
       }`}
       id="home"
     >

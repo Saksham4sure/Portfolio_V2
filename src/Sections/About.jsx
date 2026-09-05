@@ -49,8 +49,8 @@ const About = () => {
   return (
     <div
       id="skills"
-      className={`flex flex-col items-center px-6 md:px-10 transition-colors duration-300 relative ${
-        isDark ? "bg-[#121214] text-white" : "bg-[#f8f8fa] text-zinc-900"
+      className={`flex flex-col items-center px-6 md:px-10 transition-colors duration-300 relative bg-transparent ${
+        isDark ? "text-white" : "text-zinc-900"
       }`}
     >
       <div

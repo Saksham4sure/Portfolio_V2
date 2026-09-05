@@ -66,14 +66,14 @@ html {
 
 /* Whole-page Dot Grid Background Pattern */
 .dot-grid-pattern {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.13) 1.2px, transparent 1.2px);
+  background-image: radial-gradient(rgba(255, 255, 255, 0.22) 1.5px, transparent 1.5px);
   background-size: 28px 28px;
 }
 
 html.light .dot-grid-pattern,
 body.light .dot-grid-pattern,
 .light .dot-grid-pattern {
-  background-image: radial-gradient(rgba(0, 0, 0, 0.08) 1.2px, transparent 1.2px);
+  background-image: radial-gradient(rgba(0, 0, 0, 0.16) 1.5px, transparent 1.5px);
   background-size: 28px 28px;
 }
 .cardo{
