@@ -10,7 +10,7 @@ const Projects = () => {
   return (
     <div
       id="projects"
-      className={`relative transition-colors duration-300 py-20 bg-transparent ${
+      className={`relative transition-colors duration-300 pt-20 pb-36 md:pb-52 lg:pb-60 bg-transparent ${
         isDark ? "text-white" : "text-zinc-900"
       }`}
     >

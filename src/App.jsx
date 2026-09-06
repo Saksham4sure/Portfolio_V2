@@ -9,6 +9,10 @@ import Hero from './Sections/Hero'
 import Projects from './Sections/Projects'
 import { projectItems } from './constants'
 import { useTheme } from "./context/ThemeContext";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const imagesToPreload = [
   "/saksham.jpg",
@@ -80,6 +84,15 @@ function App() {
       isMounted = false;
     };
   }, []);
+
+  useEffect(() => {
+    if (!loading) {
+      const timer = setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 150);
+      return () => clearTimeout(timer);
+    }
+  }, [loading]);
 
   return (
     <>
