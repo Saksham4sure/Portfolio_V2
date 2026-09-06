@@ -43,10 +43,9 @@ function Project({
 
       const isDesktop = window.matchMedia("(min-width: 768px)").matches;
 
-      // 1. Dedicated Scroll-Tracked 3D Tilt & Parallax Animation
+      // 1. Dedicated Scroll-Tracked 3D Tilt Animation
       // This continuously tracks scroll as the card travels through the entire viewport
       const showcaseContainer = card.querySelector(".showcase-container");
-      const mockupWindow = card.querySelector(".mockup-window");
       const ambientGlow = card.querySelector(".showcase-ambient-glow");
       const borderGlow = card.querySelector(".showcase-border-glow");
 
@@ -71,25 +70,6 @@ function Project({
               start: "top bottom",
               end: "bottom top",
               scrub: 0.8, // tracks scroll with smooth dampening
-              invalidateOnRefresh: true,
-            },
-          }
-        );
-      }
-
-      // Parallax elevation for inner mockup window
-      if (mockupWindow) {
-        gsap.fromTo(
-          mockupWindow,
-          { yPercent: 4 },
-          {
-            yPercent: -4,
-            ease: "none",
-            scrollTrigger: {
-              trigger: card,
-              start: "top bottom",
-              end: "bottom top",
-              scrub: 0.8,
               invalidateOnRefresh: true,
             },
           }
@@ -159,8 +139,8 @@ function Project({
       if (showcaseContainer) {
         revealTl.fromTo(
           showcaseContainer,
-          { opacity: 0.4, scale: 0.94, y: 35 },
-          { opacity: 1, scale: 1, y: 0, duration: 0.35, ease: "power2.out" },
+          { opacity: 0.4, scale: 0.94 },
+          { opacity: 1, scale: 1, duration: 0.35, ease: "power2.out" },
           0
         );
       }
@@ -305,7 +285,7 @@ function Project({
           {/* Subtle inner border glow */}
           <div className="showcase-border-glow absolute inset-0 rounded-2xl sm:rounded-3xl border border-white/[0.08] pointer-events-none transition-colors duration-500 group-hover:border-purple-500/30" />
 
-          {/* Center Mockup Window with Parallax Elevation */}
+          {/* Center Mockup Window */}
           <div className="w-full h-full flex items-center justify-center">
             <div className="mockup-window w-full max-w-[580px] rounded-lg sm:rounded-xl overflow-hidden shadow-2xl border border-white/10 bg-[#e8e6e1] transition-transform duration-500 group-hover:scale-[1.02]">
               {/* Window Top Bar with 3 Dots */}
