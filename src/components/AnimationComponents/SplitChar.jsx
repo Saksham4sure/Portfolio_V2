@@ -34,7 +34,6 @@ const SplitChar = ({ children, className = "", delay = 0 }) => {
     <h1
       ref={charRef}
       className={className}
-      style={{ willChange: "transform, opacity" }}
     >
       {children}
     </h1>

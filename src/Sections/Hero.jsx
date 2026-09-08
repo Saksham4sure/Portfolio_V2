@@ -47,14 +47,18 @@ const Hero = () => {
 
   return (
     <div
-      className={`transition-colors duration-300 bg-transparent ${
-        isDark ? "text-white" : "text-zinc-900"
-      }`}
+      className={`transition-colors duration-300 ${
+        isDark ? "bg-[#121214] text-white" : "bg-[#f8f8fa] text-zinc-900"
+      } dot-grid-pattern`}
       id="home"
     >
       <div className="container relative md:h-[100vh] w-[100vw]">
         <div className="background relative flex flex-col md:flex-row w-[100vw] lg:h-[100vh]">
-          <div className="left-side h-[60vh] lg:h-[100vh] w-[100vw] md:w-[50vw]"></div>
+          <div
+            className={`left-side h-[60vh] lg:h-[100vh] w-[100vw] md:w-[50vw] transition-colors duration-300 ${
+              isDark ? "bg-[#121214]" : "bg-[#f8f8fa]"
+            } dot-grid-pattern`}
+          ></div>
           <div className="right-side lg:h-[100vh] w-[100vw] md:w-[50vw] overflow-hidden ">
             <div className="img relative overflow-hidden md:h-[100vh]">
               <div
@@ -85,12 +89,13 @@ const Hero = () => {
             </div>
           </div>
         </div>
-        <div className="main-title absolute left-[50%] -translate-x-[50%] top-[9%] md:top-[20%] z-30 flex items-center justify-center">
+        <div
+          className="main-title absolute left-[50%] -translate-x-[50%] top-[9%] md:top-[20%] z-30 flex items-center justify-center mix-blend-difference"
+          style={{ mixBlendMode: "difference" }}
+        >
           <SplitChar
             delay={0}
-            className={`stylish text-5xl 2xl:text-8xl min-[376px]:text-[55px] animated-text transition-colors duration-300 ${
-              isDark ? "text-white" : "text-[#222222]"
-            }`}
+            className="stylish text-5xl 2xl:text-8xl min-[376px]:text-[55px] animated-text text-white"
           >
             Saksham
           </SplitChar>
