@@ -19,8 +19,9 @@ export default function ProjectModal({
 
   const overlayRef = useRef(null);
   const windowRef = useRef(null);
+  const scrollContentRef = useRef(null);
 
-  // Animate in on mount
+  // Animate in on mount + block background scroll (including Lenis)
   useEffect(() => {
     if (!isOpen) return;
 
@@ -30,6 +31,17 @@ export default function ProjectModal({
 
     // Prevent body scroll while modal is open
     document.body.style.overflow = "hidden";
+
+    // Block wheel and touch events from reaching Lenis at the document level
+    const stopWheel = (e) => {
+      e.stopPropagation();
+    };
+    const stopTouch = (e) => {
+      e.stopPropagation();
+    };
+
+    overlay.addEventListener("wheel", stopWheel, { passive: false, capture: false });
+    overlay.addEventListener("touchmove", stopTouch, { passive: false, capture: false });
 
     const ctx = gsap.context(() => {
       gsap.fromTo(
@@ -46,6 +58,8 @@ export default function ProjectModal({
 
     return () => {
       document.body.style.overflow = "";
+      overlay.removeEventListener("wheel", stopWheel, { capture: false });
+      overlay.removeEventListener("touchmove", stopTouch, { capture: false });
       ctx.revert();
     };
   }, [isOpen]);
@@ -89,13 +103,13 @@ export default function ProjectModal({
       ref={overlayRef}
       className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6"
       style={{ opacity: 0 }}
-      onClick={(e) => {
-        if (e.target === overlayRef.current) handleClose();
-      }}
+      onWheel={(e) => e.stopPropagation()}
+      onTouchMove={(e) => e.stopPropagation()}
     >
       {/* Backdrop */}
       <div
         className="absolute inset-0"
+        onClick={handleClose}
         style={{
           backgroundColor: isDark
             ? "rgba(0, 0, 0, 0.75)"
@@ -108,7 +122,7 @@ export default function ProjectModal({
       {/* macOS Window */}
       <div
         ref={windowRef}
-        className={`relative w-full max-w-2xl rounded-xl sm:rounded-2xl overflow-hidden shadow-2xl ${
+        className={`relative w-full max-w-4xl rounded-xl sm:rounded-2xl flex flex-col shadow-2xl ${
           isDark
             ? "bg-[#1c1c1e] border border-white/[0.08]"
             : "bg-[#f5f5f5] border border-black/[0.08]"
@@ -123,7 +137,7 @@ export default function ProjectModal({
       >
         {/* Title Bar — macOS style */}
         <div
-          className={`flex items-center gap-2 px-4 py-2.5 ${
+          className={`flex items-center gap-2 px-4 py-2.5 shrink-0 rounded-t-xl sm:rounded-t-2xl ${
             isDark
               ? "bg-[#2a2a2c] border-b border-white/[0.06]"
               : "bg-[#e8e6e1] border-b border-black/[0.08]"
@@ -164,8 +178,9 @@ export default function ProjectModal({
 
         {/* Scrollable Content Area */}
         <div
-          className="overflow-y-auto"
-          style={{ maxHeight: "calc(90vh - 44px)" }}
+          ref={scrollContentRef}
+          className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden rounded-b-xl sm:rounded-b-2xl modal-scrollbar"
+          style={{ overscrollBehaviorY: "contain" }}
         >
           {/* Project Screenshot */}
           <div className="w-full aspect-[16/9] overflow-hidden bg-black/10">
