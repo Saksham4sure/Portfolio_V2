@@ -1,9 +1,10 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { useTheme } from "../../context/ThemeContext";
 import HorizontalBlockReveal from "./HorizontalBlockReveal";
+import ProjectModal from "./ProjectModal";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -23,6 +24,7 @@ function Project({
 
   const cardRef = useRef(null);
   const showcaseRef = useRef(null);
+  const [modalOpen, setModalOpen] = useState(false);
 
   // Build tags: include RESPONSIVE + project tech tags
   const tags = ["RESPONSIVE", ...(tech || []).map((t) => t.toUpperCase())];
@@ -268,15 +270,21 @@ function Project({
           }}
         />
 
-        <a
+        <div
           ref={showcaseRef}
-          href={link}
-          target="_blank"
-          rel="noopener noreferrer"
+          onClick={() => setModalOpen(true)}
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
-          className="showcase-container relative block w-full aspect-[16/10] sm:aspect-[1.65/1] rounded-2xl sm:rounded-3xl bg-[#141416] p-4 sm:p-5 md:p-6 overflow-hidden shadow-md transition-shadow duration-500 hover:shadow-2xl hover:shadow-black/30"
-          aria-label={`View ${title} project`}
+          className="showcase-container relative block w-full aspect-[16/10] sm:aspect-[1.65/1] rounded-2xl sm:rounded-3xl bg-[#141416] p-4 sm:p-5 md:p-6 overflow-hidden shadow-md transition-shadow duration-500 hover:shadow-2xl hover:shadow-black/30 cursor-pointer"
+          role="button"
+          tabIndex={0}
+          aria-label={`View ${title} project details`}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              setModalOpen(true);
+            }
+          }}
           style={{
             willChange: "transform, opacity",
             transformOrigin: "center center",
@@ -332,7 +340,7 @@ function Project({
               </div>
             </div>
           </div>
-        </a>
+        </div>
       </div>
 
       {/* 2. Metadata Section Below Showcase with Horizontal Block Reveals */}
@@ -346,14 +354,12 @@ function Project({
                   isDark ? "text-white" : "text-zinc-900"
                 }`}
               >
-                <a
-                  href={link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:underline underline-offset-4"
+                <span
+                  onClick={() => setModalOpen(true)}
+                  className="hover:underline underline-offset-4 cursor-pointer"
                 >
                   {title}
-                </a>
+                </span>
               </h3>
             </HorizontalBlockReveal>
           </div>
@@ -405,6 +411,19 @@ function Project({
           </div>
         )}
       </div>
+
+      {/* Project Detail Modal */}
+      <ProjectModal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        title={title}
+        img={img}
+        link={link}
+        idx={idx}
+        tech={tech}
+        desc={desc}
+        year={year}
+      />
     </div>
   );
 }
