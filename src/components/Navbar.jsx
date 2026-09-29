@@ -189,7 +189,7 @@ const Navbar = () => {
                 className='w-full fixed top-0 left-0 z-50 pointer-events-none bg-transparent'
                 style={{ transform: "translateZ(0)" }}
             >
-                {/* Navbar content without background color */}
+                {/* Navbar content */}
                 <div className='flex w-full justify-between items-center px-6 md:px-10 py-4 relative z-10'>
                     <div className="logo z-30 pointer-events-auto flex items-center">
                         <a
@@ -205,7 +205,7 @@ const Navbar = () => {
                                 ref={logoRef}
                                 src="/saksham-logo.svg"
                                 alt="Saksham"
-                                className={`h-4 sm:h-[18px] md:h-5 w-auto transition-all duration-300 drop-shadow-sm ${
+                                className={`h-4 sm:h-[18px] md:h-5 w-auto transition-all duration-300 ${
                                     theme === 'dark' || isOpen ? 'brightness-0 invert' : 'brightness-0'
                                 }`}
                             />
@@ -285,19 +285,19 @@ const Navbar = () => {
                             </button>
                         </div>
 
-                        {/* Dark/Light Mode Switcher: Filled icon, placed at the end */}
+                        {/* Dark/Light Mode Switcher */}
                         <button
                             onClick={toggleTheme}
                             aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-                            className={`p-1.5 bg-transparent border-none outline-none flex items-center justify-center cursor-pointer transition-transform hover:scale-110 active:scale-95 ${
+                            className={`flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 active:scale-95 pointer-events-auto ${
                                 theme === 'dark' || isOpen ? 'text-white' : 'text-zinc-900'
                             }`}
                             title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
                         >
                             {theme === 'dark' ? (
-                                <i className="ri-sun-fill text-lg md:text-xl" />
+                                <i className="ri-sun-fill text-xl md:text-2xl" />
                             ) : (
-                                <i className="ri-moon-fill text-lg md:text-xl" />
+                                <i className="ri-moon-fill text-xl md:text-2xl" />
                             )}
                         </button>
                     </div>

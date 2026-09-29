@@ -48,16 +48,14 @@ const Hero = () => {
   return (
     <div
       className={`transition-colors duration-300 ${
-        isDark ? "bg-[#121214] text-white" : "bg-[#f8f8fa] text-zinc-900"
-      } dot-grid-pattern`}
+        isDark ? "text-white" : "text-zinc-900"
+      }`}
       id="home"
     >
       <div className="container relative md:h-[100vh] w-[100vw]">
         <div className="background relative flex flex-col md:flex-row w-[100vw] lg:h-[100vh]">
           <div
-            className={`left-side h-[60vh] lg:h-[100vh] w-[100vw] md:w-[50vw] transition-colors duration-300 ${
-              isDark ? "bg-[#121214]" : "bg-[#f8f8fa]"
-            } dot-grid-pattern`}
+            className="left-side h-[60vh] lg:h-[100vh] w-[100vw] md:w-[50vw]"
           ></div>
           <div className="right-side lg:h-[100vh] w-[100vw] md:w-[50vw] overflow-hidden ">
             <div className="img relative overflow-hidden md:h-[100vh]">

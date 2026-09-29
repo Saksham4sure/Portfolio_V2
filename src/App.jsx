@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import './App.css'
 
 import Preloader from './components/AnimationComponents/Preloader'
@@ -85,6 +85,8 @@ function App() {
     };
   }, []);
 
+  const progressRef = useRef(null);
+
   useEffect(() => {
     if (!loading) {
       const timer = setTimeout(() => {
@@ -92,6 +94,29 @@ function App() {
       }, 150);
       return () => clearTimeout(timer);
     }
+  }, [loading]);
+
+  // Scroll progress bar — updates smoothly via GSAP
+  useEffect(() => {
+    if (loading || !progressRef.current) return;
+
+    const updateProgress = () => {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+
+      gsap.to(progressRef.current, {
+        width: `${progress}%`,
+        duration: 0.3,
+        ease: "power2.out",
+        overwrite: "auto",
+      });
+    };
+
+    window.addEventListener("scroll", updateProgress, { passive: true });
+    updateProgress(); // initial state
+
+    return () => window.removeEventListener("scroll", updateProgress);
   }, [loading]);
 
   return (
@@ -147,6 +172,24 @@ function App() {
             <Projects />
             <Contact />
           </div>
+        </div>
+      )}
+
+      {/* Awwwards-inspired Scroll Progress Bar — fixed at bottom of viewport */}
+      {!loading && (
+        <div
+          className="fixed bottom-0 left-0 w-full h-[3px] z-[9999] pointer-events-none"
+          aria-hidden="true"
+        >
+          <div
+            ref={progressRef}
+            className={`h-full rounded-r-full transition-colors duration-300 ${
+              theme === "dark"
+                ? "bg-white shadow-[0_0_10px_rgba(255,255,255,0.5)]"
+                : "bg-zinc-900 shadow-[0_0_10px_rgba(0,0,0,0.3)]"
+            }`}
+            style={{ width: "0%" }}
+          />
         </div>
       )}
     </>

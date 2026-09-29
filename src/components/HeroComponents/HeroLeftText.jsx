@@ -28,7 +28,7 @@ const HeroLeftText = () => {
             isDark ? "text-white" : "text-zinc-900"
           }`}
         >
-          Frontend
+          Digital
         </SplitChar>
         <SplitChar
           delay={0.3}
@@ -36,7 +36,7 @@ const HeroLeftText = () => {
             isDark ? "text-white" : "text-zinc-900"
           }`}
         >
-          Developer
+          Experiences
         </SplitChar>
         <SplitWords
           delay={0.5}
