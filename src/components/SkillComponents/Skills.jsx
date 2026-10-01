@@ -143,9 +143,9 @@ function SkillCard({ skill, desc, marq, icon, index }) {
           <div
             className="relative w-full flex justify-between items-center text-[10px] tracking-widest uppercase font-mono font-bold"
             style={{
-              color: "#000000",
-              mixBlendMode: "overlay",
-              textShadow: "0 1px 2px rgba(0, 0, 0, 0.25)",
+              color: "#1a1a1a",
+              mixBlendMode: "multiply",
+              textShadow: "0 1px 3px rgba(0, 0, 0, 0.35)",
             }}
           >
             <span>SKILL</span>
@@ -162,7 +162,7 @@ function SkillCard({ skill, desc, marq, icon, index }) {
           />
 
           {/* Center icon: overlay blend with darker contrast */}
-          <div className="relative flex-1 flex items-center justify-center" style={{ mixBlendMode: "overlay" }}>
+          <div className="relative flex-1 flex items-center justify-center" style={{ mixBlendMode: "multiply" }}>
             <img
               src={icon}
               alt={skill}
@@ -172,7 +172,7 @@ function SkillCard({ skill, desc, marq, icon, index }) {
           
 
           {/* Bottom typography: overlay blend with darker contrast */}
-          <div className="relative text-center" style={{ mixBlendMode: "overlay" }}>
+          <div className="relative text-center" style={{ mixBlendMode: "multiply" }}>
             <h3
               className="text-xl md:text-2xl bold tracking-wider uppercase holo-overlay-title"
               style={{

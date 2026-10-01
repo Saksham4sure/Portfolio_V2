@@ -10,6 +10,7 @@ import GsapIcon from "../assets/icons/gsap.svg";
 import ExpressIcon from "../assets/icons/expressjs.svg";
 import GitIcon from "../assets/icons/git.svg";
 import MongoIcon from "../assets/icons/mongodb.svg";
+import NodeIcon from "../assets/icons/nodejs.svg";
 
 export const navLinks = [
   {
@@ -92,6 +93,12 @@ export const skillTiles = [
     desc: "Backend Framework",
     marq: "Backend built for speed",
     icon: ExpressIcon,
+  },
+  {
+    skill: "Node.js",
+    desc: "Runtime Environment",
+    marq: "JavaScript beyond the browser",
+    icon: NodeIcon,
   },
   {
     skill: "GSAP",
