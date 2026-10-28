@@ -147,15 +147,6 @@ export const projectItems = [
   },
   {
     idx: "02",
-    title: "Aiyanna",
-    tech: ["gsap", "tailwind", "lenis"],
-    img: Aiyanna,
-    desc: "A visually faithful clone website inspired by a premium telescope brand. Crafted to reflect a scientific yet elegant identity, with structured layouts and smooth transitions that enhance exploration and product discovery.",
-    about: "Creative parallax scrolling web experience.",
-    link: "http://aiyanna.vercel.app/",
-  },
-  {
-    idx: "03",
     title: "Vaonis",
     tech: ["html", "tailwind", "lenis"],
     img: Vaonis,
@@ -163,6 +154,15 @@ export const projectItems = [
     about: "A visually faithful clone website of telescope brand.",
     link: "http://vaonis.vercel.app/",
   },
+  {
+    idx: "03",
+    title: "Aiyanna",
+    tech: ["gsap", "tailwind", "lenis"],
+    img: Aiyanna,
+    desc: "A visually faithful clone website inspired by a premium telescope brand. Crafted to reflect a scientific yet elegant identity, with structured layouts and smooth transitions that enhance exploration and product discovery.",
+    about: "Creative parallax scrolling web experience.",
+    link: "http://aiyanna.vercel.app/",
+  }, 
   {
     idx: "04",
     title: "Velaro",
