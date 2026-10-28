@@ -1,6 +1,6 @@
 import Vaonis from "../assets/Images/vaonis.png";
 import Aiyanna from "../assets/Images/aiyanna.png";
-import Velaro from "../assets/Images/velaro.png";
+import PixelPerfectInventory from "../assets/Images/inventory.png";
 import Renaissance from "../assets/Images/renaissance.png";
 
 import HtmlIcon from "../assets/icons/html5.svg";
@@ -138,39 +138,54 @@ export const titles = [
 export const projectItems = [
   {
     idx: "01",
-    title: "Renaissance",
-    tech: ["react", "gsap", "lenis"],
+    title: "Eternity Renaissance",
+    date: "2025",
+    year: "2025",
+    tech: ["react", "tailwind", "gsap"],
     img: Renaissance,
-    desc: "A visually faithful clone website inspired by a premium telescope brand. Crafted to reflect a scientific yet elegant identity, with structured layouts and smooth transitions that enhance exploration and product discovery.",
-    about: "Immersive historical-themed interactive journey.",
-    link: "https://eternity-renaissance.vercel.app//",
+    desc: "A frontend-focused website built around a distinctive visual identity, refined layouts, and engaging interactions. The project emphasizes responsive design, visual hierarchy, and smooth animations to create a polished and immersive browsing experience.",
+    about:
+      "A visually driven frontend experience focused on refined aesthetics, responsive layouts, and interactive web design.",
+    link: "https://eternity-renaissance.vercel.app/",
   },
+
   {
     idx: "02",
     title: "Vaonis",
+    date: "2025",
+    year: "2025",
     tech: ["html", "tailwind", "lenis"],
     img: Vaonis,
-    desc: "A visually faithful clone website inspired by a premium telescope brand. Crafted to reflect a scientific yet elegant identity, with structured layouts and smooth transitions that enhance exploration and product discovery.",
-    about: "A visually faithful clone website of telescope brand.",
-    link: "http://vaonis.vercel.app/",
+    desc: "A frontend recreation of Vaonis, a telescope brand known for its innovative approach to astronomy. This project focuses on translating the original website's visual identity into a responsive web experience, with careful attention to layout, typography, imagery, and smooth scrolling. Built to capture the look and feel of the original while strengthening my skills in modern frontend development and visual implementation.",
+    about:
+      "A visually faithful frontend clone of the Vaonis telescope brand website, recreated with HTML, Tailwind CSS, and Lenis for smooth scrolling.",
+    link: "https://vaonis.vercel.app/",
   },
+
   {
     idx: "03",
-    title: "Aiyanna",
-    tech: ["gsap", "tailwind", "lenis"],
-    img: Aiyanna,
-    desc: "A visually faithful clone website inspired by a premium telescope brand. Crafted to reflect a scientific yet elegant identity, with structured layouts and smooth transitions that enhance exploration and product discovery.",
-    about: "Creative parallax scrolling web experience.",
-    link: "http://aiyanna.vercel.app/",
-  }, 
+    title: "PixelPerfect Inventory",
+    date: "2026",
+    year: "2026",
+    tech: ["react", "tailwind", "nodejs", "express", "mongodb"],
+    img: PixelPerfectInventory,
+    desc: "A full-stack inventory management application designed to simplify product organization and stock tracking. The system connects a responsive frontend with backend services and persistent data storage to support inventory operations through a centralized dashboard. It focuses on making everyday stock management more organized and efficient.",
+    about:
+      "A full-stack inventory management system for organizing products, tracking stock, and streamlining inventory workflows through a centralized dashboard.",
+    link: "https://inventory.pixelperfect.com.np/",
+  },
+
   {
     idx: "04",
-    title: "Velaro",
-    tech: ["react", "tailwind"],
-    img: Velaro,
-    desc: "A clean and modern car showroom website designed to showcase vehicles with clarity and style. Built to highlight each model’s details through a simple layout, smooth interactions, and an intuitive browsing experience.",
-    about: "A clean and modern car showroom website.",
-    link: "http://velaro-cars.vercel.app/",
+    title: "Aiyanna",
+    date: "2025",
+    year: "2025",
+    tech: ["react", "tailwind", "gsap"],
+    img: Aiyanna,
+    desc: "A frontend development project focused on translating a visual concept into a cohesive and responsive website. It combines carefully structured layouts, thoughtful typography, and polished interface details to deliver a consistent user experience across different screen sizes.",
+    about:
+      "A design-focused frontend project combining thoughtful composition, responsive layouts, and polished interface details.",
+    link: "https://aiyanna.vercel.app/",
   },
 ];
 

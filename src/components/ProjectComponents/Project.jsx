@@ -17,10 +17,13 @@ function Project({
   tech = [],
   about = "",
   desc = "",
-  year = "2025",
+  year,
+  date,
 }) {
   const { theme } = useTheme();
   const isDark = theme === "dark";
+
+  const projectDate = date || year || "2025";
 
   const cardRef = useRef(null);
   const showcaseRef = useRef(null);
@@ -371,7 +374,7 @@ function Project({
                   isDark ? "text-zinc-400" : "text-zinc-500"
                 }`}
               >
-                {idx} &nbsp;／&nbsp; {year}
+                {idx} &nbsp;／&nbsp; {projectDate}
               </span>
             </HorizontalBlockReveal>
           </div>
@@ -422,7 +425,8 @@ function Project({
         idx={idx}
         tech={tech}
         desc={desc}
-        year={year}
+        year={projectDate}
+        date={projectDate}
       />
     </div>
   );

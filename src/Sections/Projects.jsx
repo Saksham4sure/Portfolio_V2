@@ -40,6 +40,8 @@ const Projects = () => {
               tech={proj.tech}
               about={proj.about}
               desc={proj.desc}
+              year={proj.year || proj.date}
+              date={proj.date || proj.year}
             />
           ))}
         </div>

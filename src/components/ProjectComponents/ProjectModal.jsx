@@ -12,10 +12,13 @@ export default function ProjectModal({
   idx,
   tech = [],
   desc = "",
-  year = "2025",
+  year,
+  date,
 }) {
   const { theme } = useTheme();
   const isDark = theme === "dark";
+
+  const projectDate = date || year || "2025";
 
   const overlayRef = useRef(null);
   const windowRef = useRef(null);
@@ -183,12 +186,52 @@ export default function ProjectModal({
           style={{ overscrollBehaviorY: "contain" }}
         >
           {/* Project Screenshot */}
-          <div className="w-full aspect-[16/9] overflow-hidden bg-black/10">
-            <img
-              src={img}
-              alt={title}
-              className="w-full h-full object-cover object-top"
-            />
+          <div className="px-5 sm:px-7 pt-5 sm:pt-6">
+            <div
+              className={`relative w-full aspect-[16/9] overflow-hidden rounded-lg sm:rounded-xl border ${
+                isDark
+                  ? "border-white/[0.08] bg-black/20"
+                  : "border-black/[0.08] bg-black/5"
+              }`}
+            >
+              <img
+                src={img}
+                alt={title}
+                className="w-full h-full object-cover object-top"
+              />
+
+              {/* Minimal Open Button in Top Right Corner */}
+              {link && (
+                <a
+                  href={link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                  aria-label={`Open ${title}`}
+                  title="Open site"
+                  className={`group absolute top-3 right-3 sm:top-3.5 sm:right-3.5 z-10 inline-flex items-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-medium tracking-wide uppercase transition-all duration-200 backdrop-blur-md cursor-pointer hover:scale-105 active:scale-95 shadow-md ${
+                    isDark
+                      ? "bg-black/60 hover:bg-black/80 text-white/90 hover:text-white border border-white/15 hover:border-white/30 shadow-black/40"
+                      : "bg-white/80 hover:bg-white text-zinc-800 hover:text-black border border-black/10 hover:border-black/25 shadow-black/10"
+                  }`}
+                >
+                  <span>Open</span>
+                  <svg
+                    className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M7 17L17 7M17 7H7M17 7V17"
+                    />
+                  </svg>
+                </a>
+              )}
+            </div>
           </div>
 
           {/* Details */}
@@ -207,7 +250,7 @@ export default function ProjectModal({
                   isDark ? "text-zinc-400" : "text-zinc-500"
                 }`}
               >
-                {idx} &nbsp;／&nbsp; {year}
+                {idx} &nbsp;／&nbsp; {projectDate}
               </span>
             </div>
 
@@ -225,7 +268,7 @@ export default function ProjectModal({
                   isDark ? "text-zinc-300" : "text-zinc-700"
                 }`}
               >
-                {year}
+                {projectDate}
               </span>
             </div>
 
